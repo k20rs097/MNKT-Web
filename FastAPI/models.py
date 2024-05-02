@@ -1,9 +1,8 @@
 from database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Float
-
+from sqlalchemy import Column, Integer, String
 
 class Questionnaire(Base):
-    __tablename__ = 'questionnaire'
+    __tablename__ = 'questionnaires'
 
     id = Column(Integer, primary_key=True, index=True)
     questionnaire_id = Column(Integer, nullable=False)
@@ -14,4 +13,4 @@ class Questionnaire(Base):
     choice_2 = Column(String(255))
     choice_3 = Column(String(255))
     choice_4 = Column(String(255))
-    answer_type = Column(Integer(1))
+    answer_type = Column(Integer)
