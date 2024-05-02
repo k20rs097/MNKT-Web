@@ -1,9 +1,12 @@
-from database import Base
+from connect_db import Base
 from sqlalchemy import Column, Integer, String
 
-class Questionnaire(Base):
-    __tablename__ = 'questionnaires'
+import pandas as pd
 
+class Questionnaires(Base):
+    # table name
+    __tablename__ = 'questionnaires'
+    # define columns
     id = Column(Integer, primary_key=True, index=True)
     questionnaire_id = Column(Integer, nullable=False)
     movie_id = Column(String(255))
