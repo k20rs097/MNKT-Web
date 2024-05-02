@@ -5,13 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from env import config
 
-user = config.DB_USER
-password = config.PASSWORD
-host = config.HOST
-db_name = config.DATABASE
-
-# MySQLに接続するためのフォーマット文字列
-URL_DATABASE = f'mysql+mysqlconnector://{user}:{password}@{host}/{db_name}'
+URL_DATABASE = config.URL
 
 engine = create_engine(URL_DATABASE)
 

@@ -1,9 +1,7 @@
-from dotenv import load_dotenv
-load_dotenv()
+USER = 'root'
+PASSWORD = 'root'
+HOST = 'localhost'
+PORT = '3306'
+DB_NAME = 'MNKT'
 
-import os
-
-DB_USER = os.getenv('DB_USER')
-PASSWORD = os.getenv('PASSWORD')
-HOST = os.getenv('HOST')
-DATABASE = os.getenv('DATABASE')
+URL = f'mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}'
