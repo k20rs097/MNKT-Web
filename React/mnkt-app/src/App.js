@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from "react"
+import api from './api'
 
-function App() {
+const App = () => {
+  const [questionnaire, setQuestionnaire] = useState([]);
+  const [formData, setFormData] = useState({
+    amount: '',
+    category: '',
+    description: '',
+    is_income: false,
+    date: ''
+  })
+
+  const fetchQuestionnaires = async () => {
+    const response = await api.get('/questionnaires/');
+    setQuestionnaire(response.data);
+  }
+
+  useEffect(() => {
+    fetchQuestionnaires();
+  }, []);
+
+  const handleInputChange = (event) => {
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    setFormData({
+      ...formData,
+      [event.target.name]: value
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    await api.post('/questionnaires/', formData);
+    fetchQuestionnaires();
+    setFormData({
+      amount: '',
+      category: '',
+      description: '',
+      is_income: false,
+      date: ''
+    });
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav>
+        
+      </nav>
     </div>
-  );
+  )
 }
 
 export default App;

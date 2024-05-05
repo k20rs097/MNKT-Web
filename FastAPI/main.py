@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
-from typing import Annotated
+from typing import Annotated, List
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from connect_db import SessionLocal, engine
@@ -52,7 +52,7 @@ async def create_questionnaires(questionnaire: QuestionnaireBase, db: db_depende
     db.refresh(db_questionnaire)
     return db_questionnaire
 
-# @app.post("/questionnaires", response_model=List[QuestionnaireModel])
-# async def read_questionnaires(db: db_dependency, skip: int = 0, limit: int = 100):
-#     questionnaires = db.query(models.Questionnaire).offset(skip).limit(limit).all()
-#     return questionnaires
+@app.post("/questionnaires", response_model=List[QuestionnaireModel])
+async def read_questionnaires(db: db_dependency, skip: int = 0, limit: int = 100):
+    questionnaires = db.query(models.Questionnaire).offset(skip).limit(limit).all()
+    return questionnaires
