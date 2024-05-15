@@ -1,21 +1,12 @@
-from fastapi import FastAPI, HTTPException, Depends
-from typing import Annotated, List
-from sqlalchemy.orm import Session
+from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
-from connect_db import SessionLocal, engine
+from typing import Annotated
 import models
-from fastapi.middleware.cors import CORSMiddleware
+from connect_db import engine, SessionLocal
+from sqlalchemy.orm import Session
 
 app = FastAPI()
-
-origins = [
-    'http://localhost:3000'
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins
-)
+models.Base.metadata.create_all(bind=engine)
 
 class QuestionnaireBase(BaseModel):
     questionnaire_id: int
@@ -28,13 +19,8 @@ class QuestionnaireBase(BaseModel):
     choice_4: str
     answer_type: int
 
-class QuestionnaireModel(QuestionnaireBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-
 def get_db():
+    db = SessionLocal()
     try:
         yield db
     finally:
@@ -42,17 +28,15 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-models.Base.metadata.create_all(bind=engine)
+@app.get("/questionnaires/{questionnaire_id}", status_code=status.HTTP_200_OK)
+def read_questionnaires(questionnaire_id: int, db: db_dependency):
+    questionnaire = db.query(models.Questionnaires).filter(models.Questionnaires.id == questionnaire_id).first()
+    if questionnaire is None:
+        raise HTTPException(status_code=404, detail='Questionnaire not found')
+    return questionnaire
 
-@app.post("/questionnaires/", response_model=QuestionnaireModel)
-async def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
-    db_questionnaire = models.Questionnaire(**questionnaire.dict())
+@app.post("/questionnaires/", status_code=status.HTTP_201_CREATED)
+def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
+    db_questionnaire = models.Questionnaires(**questionnaire.dict())
     db.add(db_questionnaire)
     db.commit()
-    db.refresh(db_questionnaire)
-    return db_questionnaire
-
-@app.post("/questionnaires", response_model=List[QuestionnaireModel])
-async def read_questionnaires(db: db_dependency, skip: int = 0, limit: int = 100):
-    questionnaires = db.query(models.Questionnaire).offset(skip).limit(limit).all()
-    return questionnaires
