@@ -4,9 +4,21 @@ from typing import Annotated
 import models
 from connect_db import engine, SessionLocal
 from sqlalchemy.orm import Session
-
+from enum import Enum
+from starlette.middleware.cors import CORSMiddleware
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
+
+class Status(str, Enum):
+    NOT_FOUND = 'Questionnaire not found'
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 class QuestionnaireBase(BaseModel):
     questionnaire_id: int
@@ -30,9 +42,9 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.get("/questionnaires/{questionnaire_id}", status_code=status.HTTP_200_OK)
 def read_questionnaires(questionnaire_id: int, db: db_dependency):
-    questionnaire = db.query(models.Questionnaires).filter(models.Questionnaires.id == questionnaire_id).first()
+    questionnaire = search_by_questionnaire_id(questionnaire_id, db)
     if questionnaire is None:
-        raise HTTPException(status_code=404, detail='Questionnaire not found')
+        raise HTTPException(status_code=404, detail=Status.NOT_FOUND)
     return questionnaire
 
 @app.post("/questionnaires/", status_code=status.HTTP_201_CREATED)
@@ -40,3 +52,33 @@ def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
     db_questionnaire = models.Questionnaires(**questionnaire.dict())
     db.add(db_questionnaire)
     db.commit()
+
+@app.post("/questionnaires/{questionnaire_id}", status_code=status.HTTP_201_CREATED)
+def update_questionnaires(questionnaire_id: int, db: db_dependency):
+    questionnaire = search_by_questionnaire_id(questionnaire_id, db)
+    if questionnaire is None:
+        raise HTTPException(status_code=404, detail=Status.NOT_FOUND)
+
+@app.delete("/questionnaires/{questionnaire_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_questionnaires(questionnaire_id: int, db: db_dependency):
+    statements = [
+        "SET @i = 0",
+        "UPDATE questionnaires SET id = (@i := @i +1)",
+        "ALTER TABLE questionnaires AUTO_INCREMENT = 1"
+    ]
+    questionnaire = search_by_questionnaire_id(questionnaire_id, db)
+    if questionnaire is None:
+        raise HTTPException(status_code=404, detail=Status.NOT_FOUND)
+    db.delete(questionnaire)
+    db.commit()
+    try:
+        with engine.connect() as connection:
+            for statement in statements:
+                connection.execute(statement)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail='Internal Server Error')
+
+def search_by_questionnaire_id(questionnaire_id: int, db: db_dependency):
+    result = db.query(models.Questionnaires).filter(models.Questionnaires.id == questionnaire_id).first()
+    return result
