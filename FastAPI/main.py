@@ -1,11 +1,12 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
-from typing import Annotated
+from typing import Annotated, List
 import models
 from connect_db import engine, SessionLocal
 from sqlalchemy.orm import Session
 from enum import Enum
 from starlette.middleware.cors import CORSMiddleware
+
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
 
@@ -21,6 +22,7 @@ app.add_middleware(
 )
 
 class QuestionnaireBase(BaseModel):
+    id: int
     questionnaire_id: int
     movie_id: str
     priority: int
@@ -40,6 +42,10 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
+@app.get("/questionnaires/", response_model=List[QuestionnaireBase], status_code=status.HTTP_200_OK)
+def read_all_questionnaires(db: db_dependency):
+    return db.query(models.Questionnaires).all()
+
 @app.get("/questionnaires/{questionnaire_id}", status_code=status.HTTP_200_OK)
 def read_questionnaires(questionnaire_id: int, db: db_dependency):
     questionnaire = search_by_questionnaire_id(questionnaire_id, db)
@@ -52,12 +58,19 @@ def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
     db_questionnaire = models.Questionnaires(**questionnaire.dict())
     db.add(db_questionnaire)
     db.commit()
+    return db_questionnaire
 
 @app.post("/questionnaires/{questionnaire_id}", status_code=status.HTTP_201_CREATED)
-def update_questionnaires(questionnaire_id: int, db: db_dependency):
-    questionnaire = search_by_questionnaire_id(questionnaire_id, db)
-    if questionnaire is None:
+def update_questionnaires(questionnaire_id: int, questionnaire: QuestionnaireBase, db: db_dependency):
+    existing_questionnaire = search_by_questionnaire_id(questionnaire_id, db)
+    if existing_questionnaire is None:
         raise HTTPException(status_code=404, detail=Status.NOT_FOUND)
+
+    for key, value in questionnaire.dict().items():
+        setattr(existing_questionnaire, key, value)
+
+    db.commit()
+    return existing_questionnaire
 
 @app.delete("/questionnaires/{questionnaire_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_questionnaires(questionnaire_id: int, db: db_dependency):
