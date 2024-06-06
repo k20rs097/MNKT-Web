@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react"
-import api from './api'
-import Player from './js/Player';
-import Header from './js/Header';
-import './css/App.scss';
+import api from './js/services/api'
+import Player from './js/components/Player';
+import Header from './js/components/Header';
+import { handleError } from "./js/utils/handleError";
 
 const App = () => {
   const [questionnaire, setQuestionnaire] = useState([]);
@@ -19,9 +19,8 @@ const App = () => {
     try {
       const response = await api.get('/questionnaires/');
       setQuestionnaire(response.data);
-    } catch {
-      console.error('Error fetching questionnaires:', error);
-      setError('Connection Refused');
+    } catch (error) {
+      handleError(error);
     }
   }
 
