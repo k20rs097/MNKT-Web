@@ -67,22 +67,28 @@ body {
     object-fit: cover;
 }
 
-#player .nav-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+#player .player-controller {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#player .navigation-buttons {
+    display: grid;
+    grid-template-rows: 10rem 10rem;
+}
+
+#player .navigation-button {
     background: #00000049;
     color: #ffffff;
     border: none;
     padding: 1rem;
+    margin: 0.3rem;
     cursor: pointer;
     z-index: 10;
 }
 
-#player .nav-button.left {
-    left: 0;
-}
-
-#player .nav-button.right {
-    right: 0;
+#player .navigation-button:disabled {
+    background: #ff0000;
+    color: #00000000;
 }

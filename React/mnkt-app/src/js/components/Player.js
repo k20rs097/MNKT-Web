@@ -1,24 +1,42 @@
 import React, { useState, useRef, useEffect } from "react";
+import YouTube from "react-youtube";
 import "../../css/player.css";
 
 const videos = [
-  "video1.mp4",
-  "video2.mp4",
-  "video3.mp4",
-  "video4.mp4",
-  "video5.mp4",
-  "video6.mp4",
+  "IidrVaZ2z_w",
+  "V1QkHvWhz3M",
+  "1eJdy57lFPU",
+  "8BrJHja_PNw",
+  "UHOcyALfCAA",
 ];
 
-const NavigationButton = ({ className, onClick }) => {
+const NavigationButton = ({ className, onClick, currentIndex }) => {
+  // const displayStyle = isEdge(className, currentIndex) ? "none" : "block";
+  // const isDisabled = (className === "above" && currentIndex === 0) ||
+  // (className === "below" && currentIndex === videos.length - 1);
   return (
-    <button className={`nav-button ${className}`} onClick={onClick} style={{}}>
-      {className === "right" ? ">" : "<"}
+    <button
+      className={`navigation-button ${className}`}
+      onClick={onClick}
+    >
+      {className === "above" ? "⬆︎" : "⬇︎"}
     </button>
   );
 };
 
 const Player = () => {
+  const opts = {
+    width: '450',
+    height: '800',
+    playerVars: {   
+      autoplay: 0,
+      controls: 0,
+      fs: 0,
+      loop: 1,
+      modestbranding: 1,
+      mute: 0,
+    }, 
+  };
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef(null);
 
@@ -47,32 +65,41 @@ const Player = () => {
     if (currentIndex > 0) {
       scrollToIndex(currentIndex - 1);
     }
+    console.log("handlePrevClicked");
   };
 
   const handleNextClick = () => {
     if (currentIndex < videos.length - 1) {
       scrollToIndex(currentIndex + 1);
     }
+    console.log("handleNextClicked");
   };
 
   return (
     <div id="player" className="player">
-      <div className="player-controller">
-        <NavigationButton className="left" onClick={handlePrevClick} />
-        <NavigationButton className="right" onClick={handleNextClick} />
-      </div>
       <div className="reels-container" ref={containerRef}>
         {videos.map((video, index) => (
           <div className="reels-inner-container" key={index}>
-            <video
-              className="reels-video"
-              src={`../videos/${video}`}
-              autoPlay
-              muted
-              loop
-            ></video>
+            <YouTube
+              videoId={video}
+              opts={opts}
+            />
           </div>
         ))}
+      </div>
+      <div className="player-controller">
+        <div className="navigation-buttons">
+          <NavigationButton
+            className="above"
+            onClick={handlePrevClick}
+            // currentIndex={currentIndex}
+          />
+          <NavigationButton
+            className="below"
+            onClick={handleNextClick}
+            // currentIndex={currentIndex}
+          />
+        </div>
       </div>
     </div>
   );
