@@ -2,12 +2,7 @@ import YouTube from "react-youtube";
 import "../../../css/player.css"
 
 const videos = [
-    "qRQZAyPF5mM",
-    "l8gblNhYBXc",
-    "V1QkHvWhz3M",
-    "1eJdy57lFPU",
-    "8BrJHja_PNw",
-    "UHOcyALfCAA",
+    "RQec41-Jv0w"
 ];
 
 const React_YouTube = () => {

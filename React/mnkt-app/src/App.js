@@ -3,7 +3,7 @@ import api from './js/services/api';
 import Player from './js/components/Player';
 import Header from './js/components/Header';
 import { handleError } from "./js/utils/handleError";
-import React_YouTube from "./js/components/test/React-youtubeTest";
+// import React_YouTube from "./js/components/test/React-youtubeTest";
 
 const App = () => {
   const [questionnaire, setQuestionnaire] = useState([]);
