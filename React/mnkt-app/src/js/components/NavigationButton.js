@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../css/player.css";
 
-const NavigationButton = ({ className, length}) => {
+const NavigationButton = ({ className, length, containerRef }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +14,7 @@ const NavigationButton = ({ className, length}) => {
     const container = containerRef.current;
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [containerRef]);
 
   const scrollToIndex = (index) => {
     const container = containerRef.current;
@@ -45,7 +44,6 @@ const NavigationButton = ({ className, length}) => {
       {className === "above" ? "⬆︎" : "⬇︎"}
     </button>
   );
-
 };
 
 export default NavigationButton;

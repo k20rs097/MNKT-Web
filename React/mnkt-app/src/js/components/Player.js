@@ -11,10 +11,10 @@ const videos = [
   "UHOcyALfCAA",
 ];
 
+const length = videos.length - 1;
 
 const Player = () => {
   const containerRef = useRef(null);
-  const length = videos.length - 1;
 
   const opts = {
     width: '450',
