@@ -1,10 +1,17 @@
 * {
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-/* 1rem = 10pxに変更 */
+
 html {
-    font-size: 62.5%;
+    font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+    height: 100vh;
+    background: #ffffff;
+    font-family: Arial, sans-serif;
 }
 
 .wrapper {
@@ -15,38 +22,86 @@ html {
 
 #passcode-form .title {
     display: block;
-
 }
 
-#player body {
-    background: black;
+.player-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: #ffffff;
 }
 
 #player .reels-container {
-    height: 80vh;
-    min-width: 30rem;
-    max-width: 40rem;
-    margin-top: 4em;
-    overflow: auto;
     display: flex;
-    gap: 2em;
+    width: 45rem;
+    height: 80rem;
+    gap: 2rem;
     flex-direction: column;
+    overflow-y: auto;
+    border-radius: 2rem;
     scroll-snap-type: y mandatory;
+    position: relative;
 }
 
 #player .reels-container ::-webkit-scrollbar {
     display: none;
 }
 
-#player .reel {
+#player .reels-inner-container {
+    flex: 0 0 auto;
     width: 100%;
-    height: 100%;
     aspect-ratio: 9 / 16;
     background-color: #000000;
+    border-radius: 2rem;
     scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#player .reel video {
+#player .reels-video {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+}
+
+#player .player-controller {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#player .navigation-buttons {
+    display: grid;
+    grid-template-rows: 5rem 5rem;
+}
+
+#player .navigation-button {
+    color: #616161;
+    font-size: 4rem;
+    border: none;
+    padding: 1rem;
+    margin: 0.3rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#player .hide {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+#player .show {
+    background: none;
+    transition: 0.3s;
+    opacity: 1;
+    visibility: visible;
 }

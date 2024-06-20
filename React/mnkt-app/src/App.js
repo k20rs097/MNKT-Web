@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "./App.scss";
 import api from './js/services/api';
 import Player from './js/components/Player';
 import Header from './js/components/Header';
+import EnterPasscode from "./js/components/EnterPasscode";
 import { handleError } from "./js/utils/handleError";
-// import React_YouTube from "./js/components/test/React-youtubeTest";
+
 
 const App = () => {
   const [questionnaire, setQuestionnaire] = useState([]);
@@ -53,7 +55,7 @@ const App = () => {
     <div>
       <Header />
       <Player />
-      {/* <React_YouTube /> */}
+      {/* <EnterPasscode /> */}
     </div>
   );
 };

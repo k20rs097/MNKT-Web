@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import YouTube from "react-youtube";
 import NavigationButton from "./NavigationButton";
-import "../../css/player.css";
+
 
 const videos = [
   "IidrVaZ2z_w",
@@ -30,32 +30,34 @@ const Player = () => {
   };
 
   return (
-    <div id="player" className="player">
-      <div className="reels-container" ref={containerRef}>
-        {videos.map((video, index) => (
-          <div className="reels-inner-container" key={index}>
-            <YouTube
-              videoId={video}
-              opts={opts}
+    <section className="player-wrapper">
+      <div id="player" className="player">
+        <div className="reels-container" ref={containerRef}>
+          {videos.map((video, index) => (
+            <div className="reels-inner-container" key={index}>
+              <YouTube
+                videoId={video}
+                opts={opts}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="player-controller">
+          <div className="navigation-buttons">
+            <NavigationButton
+              className="above"
+              length={length}
+              containerRef={containerRef}
+            />
+            <NavigationButton
+              className="below"
+              length={length}
+              containerRef={containerRef}
             />
           </div>
-        ))}
-      </div>
-      <div className="player-controller">
-        <div className="navigation-buttons">
-          <NavigationButton
-            className="above"
-            length={length}
-            containerRef={containerRef}
-          />
-          <NavigationButton
-            className="below"
-            length={length}
-            containerRef={containerRef}
-          />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
