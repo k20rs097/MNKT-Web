@@ -1,14 +1,14 @@
+import models.questionnaire as questionnaire
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from typing import Annotated, List
-import models
 from connect_db import engine, SessionLocal
 from sqlalchemy.orm import Session
 from enum import Enum
 from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
+questionnaire.Base.metadata.create_all(bind=engine)
 
 class Status(str, Enum):
     NOT_FOUND = 'Questionnaire not found'

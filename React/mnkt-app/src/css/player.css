@@ -75,12 +75,12 @@ body {
 
 #player .navigation-buttons {
     display: grid;
-    grid-template-rows: 10rem 10rem;
+    grid-template-rows: 5rem 5rem;
 }
 
 #player .navigation-button {
-    background: #00000049;
-    color: #ffffff;
+    color: #616161;
+    font-size: 4rem;
     border: none;
     padding: 1rem;
     margin: 0.3rem;
@@ -88,7 +88,15 @@ body {
     z-index: 10;
 }
 
-#player .navigation-button:disabled {
-    background: #ff0000;
-    color: #00000000;
+#player .hide {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+#player .show {
+    background: none;
+    transition: 0.3s;
+    opacity: 1;
+    visibility: visible;
 }

@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import { SlArrowUpCircle } from "react-icons/sl";
+import { SlArrowDownCircle } from "react-icons/sl";
+
 import "../../css/player.css";
 
 const NavigationButton = ({ className, length, containerRef }) => {
@@ -15,6 +18,17 @@ const NavigationButton = ({ className, length, containerRef }) => {
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [containerRef]);
+
+  const isEdge = (className) => {
+    switch (className) {
+      case "above":
+        return currentIndex === 0;
+      case "below":
+        return currentIndex >= length;
+      default:
+        return false;
+    }
+  };
 
   const scrollToIndex = (index) => {
     const container = containerRef.current;
@@ -40,8 +54,11 @@ const NavigationButton = ({ className, length, containerRef }) => {
   };
 
   return (
-    <button className={`navigation-button ${className}`} onClick={className === "above" ? handlePrevClick : handleNextClick}>
-      {className === "above" ? "⬆︎" : "⬇︎"}
+    <button
+      className={`navigation-button ${className} ${isEdge(className) ? "hide" : "show"}`}
+      onClick={className === "above" ? handlePrevClick : handleNextClick}
+    >
+      {className === "above" ? <SlArrowUpCircle />: <SlArrowDownCircle />}
     </button>
   );
 };
