@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import api from './js/services/api';
 import Player from './js/components/Player';
 import Header from './js/components/Header';
+import NotFound from "./js/utils/NotFound";
 import EnterPasscode from "./js/components/EnterPasscode";
 import { handleError } from "./js/utils/handleError";
 
@@ -52,11 +54,14 @@ const App = () => {
   };
 
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <Player />
-      {/* <EnterPasscode /> */}
-    </div>
+      <Routes>
+        <Route path="/" element={<EnterPasscode />}/>
+        <Route path="/player" element={<Player />}/>
+        <Route path="/*" element={<NotFound />}/>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
