@@ -1,3 +1,5 @@
+@use './navigation-button.scss';
+
 * {
     margin: 0;
     padding: 0;
@@ -38,10 +40,10 @@ body {
     background: #ffffff;
 }
 
-#player .reels-container {
+.reels-container {
     display: flex;
-    width: 45rem;
-    height: 80rem;
+    width: var(--video-width, 35rem);
+    height: var(--video-height, 80vh);
     gap: 2rem;
     flex-direction: column;
     overflow-y: auto;
@@ -49,12 +51,11 @@ body {
     scroll-snap-type: y mandatory;
     position: relative;
 }
-
-#player .reels-container ::-webkit-scrollbar {
+.reels-container ::-webkit-scrollbar {
     display: none;
 }
 
-#player .reels-inner-container {
+.reels-inner-container {
     flex: 0 0 auto;
     width: 100%;
     aspect-ratio: 9 / 16;
@@ -66,42 +67,14 @@ body {
     align-items: center;
 }
 
-#player .reels-video {
+.reels-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-#player .player-controller {
+.player-controller {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-#player .navigation-buttons {
-    display: grid;
-    grid-template-rows: 5rem 5rem;
-}
-
-#player .navigation-button {
-    color: #616161;
-    font-size: 4rem;
-    border: none;
-    padding: 1rem;
-    margin: 0.3rem;
-    cursor: pointer;
-    z-index: 10;
-}
-
-#player .hide {
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-}
-
-#player .show {
-    background: none;
-    transition: 0.3s;
-    opacity: 1;
-    visibility: visible;
 }

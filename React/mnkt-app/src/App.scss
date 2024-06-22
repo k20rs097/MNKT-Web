@@ -1,6 +1,2 @@
-@use './css/player.scss';
-
-.header {
-    display: flex;
-    align-items: center;
-}
+@use './scss/player.scss';
+@use './scss/enter-passcode.scss'

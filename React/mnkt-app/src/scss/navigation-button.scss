@@ -1,0 +1,32 @@
+$classes: (
+    above: 3rem,
+    below: -3rem
+);
+
+.navigation-buttons {
+    display: grid;
+    grid-template-rows: 5rem 5rem;
+}
+
+.navigation-button {
+    color: #616161;
+    font-size: 4rem;
+    border: none;
+    padding: 1rem;
+    margin: 0.3rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.hide {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.show {
+    background: none;
+    transition: 0.3s;
+    opacity: 1;
+    visibility: visible;
+}

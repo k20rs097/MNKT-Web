@@ -2,9 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { SlArrowUpCircle } from "react-icons/sl";
 import { SlArrowDownCircle } from "react-icons/sl";
 
-import "../../css/player.css";
-
-const NavigationButton = ({ className, length, containerRef }) => {
+const NavigationButton = ({ className, length, onClick, containerRef }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -43,14 +41,12 @@ const NavigationButton = ({ className, length, containerRef }) => {
     if (currentIndex > 0) {
       scrollToIndex(currentIndex - 1);
     }
-    console.log("handlePrevClicked");
   };
 
   const handleNextClick = () => {
     if (currentIndex < length) {
       scrollToIndex(currentIndex + 1);
     }
-    console.log("handleNextClicked");
   };
 
   return (

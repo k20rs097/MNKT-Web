@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import YouTube from "react-youtube";
 import NavigationButton from "./NavigationButton";
 
-
 const videos = [
   "IidrVaZ2z_w",
   "RQec41-Jv0w",
@@ -15,10 +14,11 @@ const length = videos.length - 1;
 
 const Player = () => {
   const containerRef = useRef(null);
+  const [playerSize, setPlayerSize] = useState({ width: 0, height: 0});
 
   const opts = {
-    width: '450',
-    height: '800',
+    width: videoWidth,
+    height: videoHeight,
     playerVars: {   
       autoplay: 0,
       controls: 0,
