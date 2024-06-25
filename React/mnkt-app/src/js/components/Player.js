@@ -14,11 +14,11 @@ const length = videos.length - 1;
 
 const Player = () => {
   const containerRef = useRef(null);
-  const [playerSize, setPlayerSize] = useState({ width: 0, height: 0});
+  // const [playerSize, setPlayerSize] = useState({ width: 0, height: 0});
 
   const opts = {
-    width: videoWidth,
-    height: videoHeight,
+    width: "350",
+    height: "650",
     playerVars: {   
       autoplay: 0,
       controls: 0,

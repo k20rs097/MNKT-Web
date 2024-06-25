@@ -1,0 +1,21 @@
+.enter-passcode-container {
+    width: 70vw;
+    height: 80vh;
+    margin: auto;
+    place-items: center;
+}
+
+.text-box {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-text-box {
+    margin-top: 40vh;
+    display: block;
+    font-size: 1.6rem;
+    width: clamp(25rem, 100%, 50rem);
+    border-radius: 3.2rem;
+    padding: 0.8rem;
+}

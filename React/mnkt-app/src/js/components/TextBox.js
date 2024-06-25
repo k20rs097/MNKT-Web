@@ -6,7 +6,9 @@ const TextBox = ({ inputType, id }) => {
       <input
         type={inputType}
         id={id}
-        className=""
+        pattern="\d*"
+        // onInput={}
+        className="input-text-box"
       />
     </section>
   );

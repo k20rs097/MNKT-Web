@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String
 
 import pandas as pd
 
-class DisplayVideos(Base):
+class Passcode(Base):
     __tablename__ = 'passcode'
     id = Column(Integer, primary_key=True, index=True)
     passcode = Column(Integer, nullable=False)
