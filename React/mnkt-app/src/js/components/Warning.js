@@ -1,7 +1,7 @@
 const Warning = ({ text }) => {
-  const validateInput = () => {
-    
-  };
+//   const validateInput = () => {
+
+//   };
 
   return (
     <div id="input-warning" className="warning">

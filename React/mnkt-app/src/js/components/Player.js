@@ -3,11 +3,11 @@ import YouTube from "react-youtube";
 import NavigationButton from "./NavigationButton";
 
 const videos = [
-  "IidrVaZ2z_w",
-  "RQec41-Jv0w",
-  "zFvnCQOWSmc",
-  "8BrJHja_PNw",
-  "UHOcyALfCAA",
+  "Ljlml922GM8",
+  "LslF_9XTFVs",
+  "9dasPfkrryk",
+  "uvOcxOPPPDI",
+  "eQ3hMV-FHjk",
 ];
 
 const length = videos.length - 1;

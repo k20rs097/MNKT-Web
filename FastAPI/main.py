@@ -10,9 +10,6 @@ from starlette.middleware.cors import CORSMiddleware
 app = FastAPI()
 questionnaire.Base.metadata.create_all(bind=engine)
 
-class Status(str, Enum):
-    NOT_FOUND = 'Questionnaire not found'
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
@@ -44,7 +41,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.get("/questionnaires/", response_model=List[QuestionnaireBase], status_code=status.HTTP_200_OK)
 def read_all_questionnaires(db: db_dependency):
-    return db.query(models.Questionnaires).all()
+    return db.query(questionnaire.Questionnaires).all()
 
 @app.get("/questionnaires/{questionnaire_id}", status_code=status.HTTP_200_OK)
 def read_questionnaires(questionnaire_id: int, db: db_dependency):
@@ -55,7 +52,7 @@ def read_questionnaires(questionnaire_id: int, db: db_dependency):
 
 @app.post("/questionnaires/", status_code=status.HTTP_201_CREATED)
 def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
-    db_questionnaire = models.Questionnaires(**questionnaire.dict())
+    db_questionnaire = questionnaire.Questionnaires(**questionnaire.dict())
     db.add(db_questionnaire)
     db.commit()
     return db_questionnaire
@@ -64,7 +61,7 @@ def create_questionnaires(questionnaire: QuestionnaireBase, db: db_dependency):
 def update_questionnaires(questionnaire_id: int, questionnaire: QuestionnaireBase, db: db_dependency):
     existing_questionnaire = search_by_questionnaire_id(questionnaire_id, db)
     if existing_questionnaire is None:
-        raise HTTPException(status_code=404, detail=Status.NOT_FOUND)
+        raise HTTPException(status_code=404, detail='Questionnaire not found')
 
     for key, value in questionnaire.dict().items():
         setattr(existing_questionnaire, key, value)
@@ -93,5 +90,5 @@ def delete_questionnaires(questionnaire_id: int, db: db_dependency):
         raise HTTPException(status_code=500, detail='Internal Server Error')
 
 def search_by_questionnaire_id(questionnaire_id: int, db: db_dependency):
-    result = db.query(models.Questionnaires).filter(models.Questionnaires.id == questionnaire_id).first()
+    result = db.query(questionnaire.Questionnaires).filter(questionnaire.Questionnaires.id == questionnaire_id).first()
     return result

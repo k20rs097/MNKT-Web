@@ -1,8 +1,9 @@
 .enter-passcode-container {
     width: 70vw;
-    height: 80vh;
     margin: auto;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .text-box {
@@ -13,9 +14,18 @@
 
 .input-text-box {
     margin-top: 40vh;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
+    text-align: center;
     font-size: 1.6rem;
     width: clamp(25rem, 100%, 50rem);
     border-radius: 3.2rem;
+    border: 0.2rem solid #454545;
     padding: 0.8rem;
+}
+
+.play-rectangle {
+    margin-right: auto;
+    margin-left: auto;
 }

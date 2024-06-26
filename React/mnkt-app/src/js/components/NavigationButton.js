@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SlArrowUpCircle } from "react-icons/sl";
 import { SlArrowDownCircle } from "react-icons/sl";
 
-const NavigationButton = ({ className, length, onClick, containerRef }) => {
+const NavigationButton = ({ className, length, containerRef }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, clientHeight } = containerRef.current;
+      console.log(`scrollTop: ${scrollTop}\nclientHeight:${clientHeight}`)
       const newIndex = Math.round(scrollTop / clientHeight);
       setCurrentIndex(newIndex);
     };

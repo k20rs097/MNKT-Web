@@ -1,53 +1,61 @@
-import React, {useState, useEffect} from "react"
-import api from './api'
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
+import { handleError } from "../utils/handleError";
 
-const App = () => {
+const EditQuestionnaire = () => {
   const [questionnaire, setQuestionnaire] = useState([]);
   const [formData, setFormData] = useState({
-    id: '',
-    questionnaire_id: '',
-    movie_id: '',
-    priority: '',
-    question_sentence: '',
-    choice_1: '',
-    choice_2: '',
-    choice_3: '',
-    choice_4: ''
-  })
+    id: "",
+    questionnaire_id: "",
+    movie_id: "",
+    priority: "",
+    question_sentence: "",
+    choice_1: "",
+    choice_2: "",
+    choice_3: "",
+    choice_4: "",
+  });
 
   const fetchQuestionnaires = async () => {
-    const response = await api.get('/questionnaires/');
-    setQuestionnaire(response.data);
-  }
+    try {
+      const response = await api.get("/questionnaires/");
+      setQuestionnaire(response.data);
+    } catch (error) {
+      handleError(error);
+    }
+  };
 
   useEffect(() => {
     fetchQuestionnaires();
   }, []);
 
-  const handleInputChange = (event) => {
-    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    setFormData({
-      ...formData,
-      [event.target.name]: value
-    });
-  };
+  // const handleInputChange = (event) => {
+  //   const value =
+  //     event.target.type === "checkbox"
+  //       ? event.target.checked
+  //       : event.target.value;
+  //   setFormData({
+  //     ...formData,
+  //     [event.target.name]: value,
+  //   });
+  // };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    await api.post('/questionnaires/', formData);
-    fetchQuestionnaires();
-    setFormData({
-      id: '',
-      questionnaire_id: '',
-      movie_id: '',
-      priority: '',
-      question_sentence: '',
-      choice_1: '',
-      choice_2: '',
-      choice_3: '',
-      choice_4: ''
-    });
-  };
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   await api.post("/questionnaires/", formData);
+  //   fetchQuestionnaires();
+  //   setFormData({
+  //     id: "",
+  //     questionnaire_id: "",
+  //     movie_id: "",
+  //     priority: "",
+  //     question_sentence: "",
+  //     choice_1: "",
+  //     choice_2: "",
+  //     choice_3: "",
+  //     choice_4: "",
+  //   });
+  // };
 
   return (
     <div>
@@ -66,23 +74,23 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-        {/* 状態から質問票データを表示 */}
-        {questionnaire.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.movie_id}</td>
-            <td>{item.priority}</td>
-            <td>{item.question}</td>
-            <td>{item.choice_1}</td>
-            <td>{item.choice_2}</td>
-            <td>{item.choice_3}</td>
-            <td>{item.choice_4}</td>
-          </tr>
-        ))}
+          {/* 状態から質問票データを表示 */}
+          {questionnaire.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.movie_id}</td>
+              <td>{item.priority}</td>
+              <td>{item.question}</td>
+              <td>{item.choice_1}</td>
+              <td>{item.choice_2}</td>
+              <td>{item.choice_3}</td>
+              <td>{item.choice_4}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default App;
+export default EditQuestionnaire;

@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
     return (
         <div id="header" className="header">
             <div className="header-menu">
-                <h1>Munakata-Web</h1>
+                <h1 className="header-title">
+                    <Link to="/">Munakata-Web</Link>
+                </h1>
             </div>
         </div>
     );

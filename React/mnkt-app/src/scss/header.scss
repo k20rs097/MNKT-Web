@@ -3,10 +3,16 @@
     height: 5vh;
     display: grid;
     place-items: center;
+    background-color: #ffffff4b;
+    border-bottom: 0.1rem #707070bc solid;
 }
 
 .header-menu {
     width: 70%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.header-title {
+    font-size: 2rem;
 }
