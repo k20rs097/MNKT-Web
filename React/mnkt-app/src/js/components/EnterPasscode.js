@@ -10,7 +10,7 @@ const EnterPasscode = () => {
             <TextBox
               id={"passcode"}
             />
-            <Link to="/player" className="play-rectangle"><BsFillPlayBtnFill size={"15rem"}/></Link>
+            <Link to="/build/player" className="play-rectangle"><BsFillPlayBtnFill size={"15rem"}/></Link>
         </div>
     );
 }

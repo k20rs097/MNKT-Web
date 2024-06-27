@@ -8,7 +8,7 @@ const NavigationButton = ({ className, length, containerRef }) => {
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, clientHeight } = containerRef.current;
-      console.log(`scrollTop: ${scrollTop}\nclientHeight:${clientHeight}`)
+      // console.log(`scrollTop: ${scrollTop}\nclientHeight:${clientHeight}`)
       const newIndex = Math.round(scrollTop / clientHeight);
       setCurrentIndex(newIndex);
     };

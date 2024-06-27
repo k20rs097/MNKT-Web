@@ -5,7 +5,7 @@ const Header = () => {
         <div id="header" className="header">
             <div className="header-menu">
                 <h1 className="header-title">
-                    <Link to="/">Munakata-Web</Link>
+                    <Link to="/build">Munakata-Web</Link>
                 </h1>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.scss";
+import "./App.css";
 import Player from './js/components/Player';
 import Header from './js/components/Header';
 import NotFound from "./js/utils/NotFound";
@@ -12,9 +12,9 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<EnterPasscode />}/>
-        <Route path="/player" element={<Player />}/>
-        <Route path="/edit" element={<EditQuestionnaire />}/>
+        <Route path="/build" element={<EnterPasscode />}/>
+        <Route path="/build/player" element={<Player />}/>
+        <Route path="/build/edit" element={<EditQuestionnaire />}/>
         <Route path="/*" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
