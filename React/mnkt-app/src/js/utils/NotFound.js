@@ -1,8 +1,7 @@
 const NotFound = () => {
     return (
-        <div>
-            <h1>404 NotFound</h1>
-            <p>ページが見つかりませんでした。</p>
+        <div id="not-found-container">
+            <h1>ページが見つかりませんでした。</h1>
         </div>
     );
 }

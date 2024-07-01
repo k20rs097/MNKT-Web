@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import YouTube from "react-youtube";
-import NavigationButton from "./NavigationButton";
+import PlayerController from "./PlayerController";
 
 const videos = [
   "Ljlml922GM8",
@@ -42,20 +42,10 @@ const Player = () => {
             </div>
           ))}
         </div>
-        <div className="player-controller">
-          <div className="navigation-buttons">
-            <NavigationButton
-              className="above"
-              length={length}
-              containerRef={containerRef}
-            />
-            <NavigationButton
-              className="below"
-              length={length}
-              containerRef={containerRef}
-            />
-          </div>
-        </div>
+        <PlayerController 
+          length={length}
+          containerRef={containerRef}
+        />
       </div>
     </section>
   );

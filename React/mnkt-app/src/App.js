@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import Player from './js/components/Player';
+import Player from './js/layouts/player/Player';
 import Header from './js/components/Header';
 import NotFound from "./js/utils/NotFound";
-import EnterPasscode from "./js/components/EnterPasscode";
-import EditQuestionnaire from "./js/components/EditQuestionnaire";
+import EnterPasscode from "./js/layouts/EnterPasscode";
+import EditQuestionnaire from "./js/layouts/EditQuestionnaire";
 
 
 const App = () => {

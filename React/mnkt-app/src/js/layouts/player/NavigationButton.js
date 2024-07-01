@@ -52,10 +52,15 @@ const NavigationButton = ({ className, length, containerRef }) => {
 
   return (
     <button
-      className={`navigation-button ${className} ${isEdge(className) ? "hide" : "show"}`}
+      className={`navigation-button ${className}`}
       onClick={className === "above" ? handlePrevClick : handleNextClick}
+      style={{
+        opacity: isEdge(className) ? 0 : 1,
+        visibility: isEdge(className) ? "hidden" : "visible",
+        transition: "opacity 0.3s, visibility 0.3s",
+      }}
     >
-      {className === "above" ? <SlArrowUpCircle />: <SlArrowDownCircle />}
+      {className === "above" ? <SlArrowUpCircle /> : <SlArrowDownCircle />}
     </button>
   );
 };

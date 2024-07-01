@@ -1,5 +1,5 @@
 import React from "react";
-import TextBox from "./TextBox";
+import TextBox from "../components/TextBox";
 // import Warning from "./Warning";
 import { BsFillPlayBtnFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
