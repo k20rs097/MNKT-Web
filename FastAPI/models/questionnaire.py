@@ -1,7 +1,7 @@
-from connect_db import Base
 from sqlalchemy import Column, Integer, String
 
-import pandas as pd
+from connect_db import Base
+
 
 class Questionnaires(Base):
     __tablename__ = 'questionnaires'

@@ -1,7 +1,7 @@
 import NavigationButton from "./NavigationButton";
 import useWindowSize from "../../hooks/useWindowSize";
-
-const PlayerController = ({ length, containerRef }) => {
+ 
+const PlayerController = ({ length, containerRef, currentIndex, setCurrentIndex }) => {
   const [width] = useWindowSize();
   return (
     <div
@@ -13,11 +13,15 @@ const PlayerController = ({ length, containerRef }) => {
           className="above"
           length={length}
           containerRef={containerRef}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
         />
         <NavigationButton
           className="below"
           length={length}
           containerRef={containerRef}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
         />
       </div>
     </div>
