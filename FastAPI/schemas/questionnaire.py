@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional  # typing モジュールの Optional をインポート
 
 class QuestionnaireBase(BaseModel):
     questionnaire_id: int
@@ -9,13 +10,13 @@ class QuestionnaireBase(BaseModel):
     choice_2: str
     choice_3: str
     choice_4: str
-    answer_type: int
-    
+    answer_type: Optional[int]  # answer_type フィールドの型を int または Optional[int] に指定
+
 class QuestionnaireCreate(QuestionnaireBase):
-    pass
+    pass  # QuestionnaireBase モデルを継承するだけであれば、何も追加する必要はありません
 
 class Questionnaire(QuestionnaireBase):
     id: int
-    
+
     class Config:
         orm_mode = True

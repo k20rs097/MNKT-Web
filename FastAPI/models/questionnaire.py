@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from connect_db import Base
+from database import Base
 
 class Questionnaires(Base):
     __tablename__ = 'questionnaires'

@@ -7,11 +7,20 @@ from env import config
 
 URL_DATABASE = config.URL
 
-engine = create_engine(URL_DATABASE)
-
+engine = create_engine(
+    URL_DATABASE,
+    connect_args={"check_same_thread": False}
+    )
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
-    bind=engine)
-
+    bind=engine
+    )
 Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
