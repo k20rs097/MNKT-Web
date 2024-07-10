@@ -1,6 +1,14 @@
 from pydantic import BaseModel
 
-class QuestionnaireBase(BaseModel):
+class UserBase(BaseModel):
+    user_name: str
+    password: str
+    
+class UserCreate(UserBase):
+    pass
+
+class User(UserCreate):
     id: int
-    user_id: int
-    hashed_password: str
+    
+    class Config:
+        orm_mode = True

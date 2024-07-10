@@ -2,9 +2,9 @@ from sqlalchemy import Column, Integer, String
 
 from connect_db import Base
 
-
 class Questionnaires(Base):
     __tablename__ = 'questionnaires'
+    
     id = Column(Integer, primary_key=True, index=True)
     questionnaire_id = Column(Integer, nullable=False)
     movie_id = Column(String(255))

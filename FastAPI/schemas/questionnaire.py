@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 class QuestionnaireBase(BaseModel):
-    id: int
     questionnaire_id: int
     movie_id: str
     priority: int
@@ -11,3 +10,12 @@ class QuestionnaireBase(BaseModel):
     choice_3: str
     choice_4: str
     answer_type: int
+    
+class QuestionnaireCreate(QuestionnaireBase):
+    pass
+
+class Questionnaire(QuestionnaireBase):
+    id: int
+    
+    class Config:
+        orm_mode = True
