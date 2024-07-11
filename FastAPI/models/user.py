@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String
-
 from connect_db import Base
+from sqlalchemy import Column, Integer, String
 
 
 class Users(Base):

@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 
 from database import Base
 
+
 class Questionnaires(Base):
     __tablename__ = 'questionnaires'
     

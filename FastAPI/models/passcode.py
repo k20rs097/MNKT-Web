@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-
 from connect_db import Base
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 
 class Passcode(Base):

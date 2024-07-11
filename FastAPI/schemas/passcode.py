@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class PasscodeBase(BaseModel):
     passcode: int
     

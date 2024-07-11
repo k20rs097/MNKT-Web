@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from typing import Optional  # typing モジュールの Optional をインポート
+
+from pydantic import BaseModel
+
 
 class QuestionnaireBase(BaseModel):
     questionnaire_id: int
